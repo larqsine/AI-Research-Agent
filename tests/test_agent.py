@@ -1,0 +1,83 @@
+"""Tests for the whole workflow with a FAKE LLM and a FAKE search (no key, no internet).
+
+The fake LLM lets us test the important promise of this project:
+even when the LLM misbehaves, wrong facts cannot reach the final answer.
+"""
+
+import pytest
+from pydantic_ai import UnexpectedModelBehavior
+from pydantic_ai.messages import ModelResponse, ToolCallPart, ToolReturnPart
+from pydantic_ai.models.function import AgentInfo, FunctionModel
+
+from scout import openalex
+from scout.agent import run_scout
+from scout.models import Paper
+
+REAL = Paper(paper_id="W100", title="Real Paper About LLM Agents", authors=["Ada Lovelace"], year=2023,
+             citation_count=250, citation_source="OpenAlex (test)", url="https://doi.org/10.1/real",
+             abstract="We study LLM agents.")
+
+CONSTRAINTS = {"topic": "llm agents", "year_op": "after", "year": 2022,
+               "citation_op": "at_least", "citations": 100}
+
+
+def fake_llm(final_choices, search_first=True):
+    """Build a fake model. `final_choices` are the answers it gives, one per attempt."""
+    choices = list(final_choices)
+
+    def respond(messages, info: AgentInfo) -> ModelResponse:
+        output_tool = info.output_tools[0].name
+        if not info.function_tools:  # step 1: the parse agent
+            return ModelResponse(parts=[ToolCallPart(output_tool, CONSTRAINTS)])
+        searched = any(isinstance(part, ToolReturnPart) and part.tool_name == "search_papers"
+                       for message in messages for part in message.parts)
+        if search_first and not searched:
+            return ModelResponse(parts=[ToolCallPart("search_papers", {"query": "llm agents"})])
+        return ModelResponse(parts=[ToolCallPart(output_tool, choices.pop(0))])
+
+    return FunctionModel(respond)
+
+
+def use_fake_search(monkeypatch, papers):
+    monkeypatch.setattr(openalex, "search_openalex", lambda query, constraints: papers)
+
+
+def test_facts_come_from_the_tool_not_from_the_llm(monkeypatch):
+    use_fake_search(monkeypatch, [REAL])
+    choice = {"paper_id": "W100", "explanation": "It is about LLM agents.", "uncertainty": "None"}
+
+    answer = run_scout("find a paper", model=fake_llm([choice]))
+
+    assert answer.found
+    assert answer.paper == REAL
+    assert answer.constraints.year_range() == (2023, None)
+    assert answer.searches == ["llm agents"]
+
+
+def test_invented_paper_is_rejected(monkeypatch):
+    use_fake_search(monkeypatch, [REAL])
+    invented = {"paper_id": "W999", "explanation": "Trust me.", "uncertainty": "None"}
+    give_up = {"paper_id": None, "explanation": "Nothing fits.", "uncertainty": "None"}
+
+    answer = run_scout("find a paper", model=fake_llm([invented, give_up]))
+
+    assert not answer.found and answer.paper is None
+
+
+def test_llm_must_search_before_answering(monkeypatch):
+    use_fake_search(monkeypatch, [REAL])
+    from_memory = {"paper_id": "W100", "explanation": "I just know it.", "uncertainty": "None"}
+
+    # The fake LLM never calls the tool, so every attempt is refused and the run stops with an error.
+    with pytest.raises(UnexpectedModelBehavior):
+        run_scout("find a paper", model=fake_llm([from_memory] * 10, search_first=False))
+
+
+def test_no_paper_found_is_a_valid_answer(monkeypatch):
+    use_fake_search(monkeypatch, [])
+    nothing = {"paper_id": "null", "explanation": "No paper passed the limits.", "uncertainty": "None"}
+
+    answer = run_scout("find a paper", model=fake_llm([nothing]))
+
+    assert not answer.found
+    assert "0 paper(s) passed" in answer.uncertainty[-1]
