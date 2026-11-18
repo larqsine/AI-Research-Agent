@@ -1,0 +1,4 @@
+pydantic-ai-slim[groq]>=2.68,<3
+httpx>=0.27
+python-dotenv>=1.0
+pytest>=8.0

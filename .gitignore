@@ -1,0 +1,12 @@
+# secrets
+.env
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# backup copy made by the evaluation script
+evaluation/results_previous.md
