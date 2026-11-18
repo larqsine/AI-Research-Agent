@@ -9,7 +9,7 @@ from pydantic_ai import UnexpectedModelBehavior
 from pydantic_ai.messages import ModelResponse, ToolCallPart, ToolReturnPart
 from pydantic_ai.models.function import AgentInfo, FunctionModel
 
-from scout import openalex
+from scout import config, openalex
 from scout.agent import run_scout
 from scout.models import Paper
 
@@ -81,3 +81,29 @@ def test_no_paper_found_is_a_valid_answer(monkeypatch):
 
     assert not answer.found
     assert "0 paper(s) passed" in answer.uncertainty[-1]
+
+
+def test_search_limit_stops_extra_searches(monkeypatch):
+    # The fake search remembers every query that really reached OpenAlex.
+    real_searches = []
+    monkeypatch.setattr(openalex, "search_openalex",
+                        lambda query, constraints: real_searches.append(query) or [])
+    give_up = {"paper_id": None, "explanation": "Nothing fits.", "uncertainty": "None"}
+    wanted = config.MAX_SEARCHES + 2  # the greedy LLM tries 2 searches too many
+
+    def greedy_llm(messages, info: AgentInfo) -> ModelResponse:
+        output_tool = info.output_tools[0].name
+        if not info.function_tools:  # step 1: the parse agent
+            return ModelResponse(parts=[ToolCallPart(output_tool, CONSTRAINTS)])
+        tried = sum(isinstance(part, ToolReturnPart) and part.tool_name == "search_papers"
+                    for message in messages for part in message.parts)
+        if tried < wanted:
+            return ModelResponse(parts=[ToolCallPart("search_papers", {"query": f"try {tried + 1}"})])
+        return ModelResponse(parts=[ToolCallPart(output_tool, give_up)])
+
+    answer = run_scout("find a paper", model=FunctionModel(greedy_llm))
+
+    # Only the first MAX_SEARCHES calls reach OpenAlex; the extra ones get "Search limit reached".
+    assert len(real_searches) == config.MAX_SEARCHES == 4
+    assert answer.searches == ["try 1", "try 2", "try 3", "try 4"]
+    assert not answer.found
