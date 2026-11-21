@@ -1,0 +1,114 @@
+[
+  {
+    "id": "T01",
+    "category": "after year + minimum citations (assignment example)",
+    "prompt": "Find a research paper about LLM agents for software engineering that was published after 2022 and has at least 100 citations. Explain why the paper is relevant and provide the source of the citation count.",
+    "expect_found": true,
+    "year_min": 2023, "year_max": null,
+    "citations_min": 100, "citations_max": null
+  },
+  {
+    "id": "T02",
+    "category": "before year + more than N citations (assignment example)",
+    "prompt": "Find a paper about retrieval-augmented generation published before 2021 with more than 500 citations. Summarize its contribution in 5-7 sentences.",
+    "expect_found": true,
+    "year_min": null, "year_max": 2020,
+    "citations_min": 501, "citations_max": null
+  },
+  {
+    "id": "T03",
+    "category": "vague year word 'recent', no citation limit (assignment example)",
+    "prompt": "Find a recent paper about AI agents using tools and explain whether it would be useful for someone building autonomous software agents.",
+    "expect_found": true,
+    "year_min": 2023, "year_max": null,
+    "citations_min": null, "citations_max": null
+  },
+  {
+    "id": "T04",
+    "category": "exact year + very high minimum citations",
+    "prompt": "Find a paper about deep residual learning for image recognition published in 2016 with at least 50000 citations.",
+    "expect_found": true,
+    "year_min": 2016, "year_max": 2016,
+    "citations_min": 50000, "citations_max": null
+  },
+  {
+    "id": "T05",
+    "category": "narrow topic + after year + minimum citations",
+    "prompt": "Find a paper about automated program repair with large language models published after 2021 with at least 50 citations.",
+    "expect_found": true,
+    "year_min": 2022, "year_max": null,
+    "citations_min": 50, "citations_max": null
+  },
+  {
+    "id": "T06",
+    "category": "narrow topic + maximum citations",
+    "prompt": "Find a paper about prompt injection attacks against LLM-integrated applications, published from 2023 onwards, with fewer than 50 citations.",
+    "expect_found": true,
+    "year_min": 2023, "year_max": null,
+    "citations_min": null, "citations_max": 49
+  },
+  {
+    "id": "T07",
+    "category": "broad topic + approximate citations",
+    "prompt": "Find a paper about graph neural networks with roughly 1000 citations.",
+    "expect_found": true,
+    "year_min": null, "year_max": null,
+    "citations_min": 800, "citations_max": 1200
+  },
+  {
+    "id": "T08",
+    "category": "narrow topic + since year (inclusive) + minimum citations",
+    "prompt": "Find a paper on benchmarks for evaluating code generation by large language models, published since 2021, with at least 200 citations.",
+    "expect_found": true,
+    "year_min": 2021, "year_max": null,
+    "citations_min": 200, "citations_max": null
+  },
+  {
+    "id": "T09",
+    "category": "no good paper exists (topic did not exist yet)",
+    "prompt": "Find a paper about LLM-based coding agents published before 2010 with at least 1000 citations.",
+    "expect_found": false,
+    "year_min": null, "year_max": 2009,
+    "citations_min": 1000, "citations_max": null
+  },
+  {
+    "id": "T10",
+    "category": "no good paper exists (impossible citation count)",
+    "prompt": "Find a paper about retrieval-augmented generation published in 2025 with more than 200000 citations.",
+    "expect_found": false,
+    "year_min": 2025, "year_max": 2025,
+    "citations_min": 200001, "citations_max": null
+  },
+  {
+    "id": "T11",
+    "category": "ambiguous request (unclear topic, no limits)",
+    "prompt": "Find me a good paper about transformers.",
+    "expect_found": true,
+    "year_min": null, "year_max": null,
+    "citations_min": null, "citations_max": null
+  },
+  {
+    "id": "T12",
+    "category": "ambiguous request (vague words: recent, popular, agents)",
+    "prompt": "I need something recent and popular about agents.",
+    "expect_found": true,
+    "year_min": 2023, "year_max": null,
+    "citations_min": null, "citations_max": null
+  },
+  {
+    "id": "T13",
+    "category": "year range (between two years) + minimum citations",
+    "prompt": "Find a paper about federated learning published between 2019 and 2021 with at least 300 citations.",
+    "expect_found": true,
+    "year_min": 2019, "year_max": 2021,
+    "citations_min": 300, "citations_max": null
+  },
+  {
+    "id": "T14",
+    "category": "until year (inclusive) + maximum citations",
+    "prompt": "Find a paper about automated code review published until 2020 with at most 100 citations.",
+    "expect_found": true,
+    "year_min": null, "year_max": 2020,
+    "citations_min": null, "citations_max": 100
+  }
+]

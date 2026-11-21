@@ -107,3 +107,56 @@ def test_search_limit_stops_extra_searches(monkeypatch):
     assert len(real_searches) == config.MAX_SEARCHES == 4
     assert answer.searches == ["try 1", "try 2", "try 3", "try 4"]
     assert not answer.found
+
+
+def test_wrong_tool_name_is_retried_and_logged(monkeypatch, caplog):
+    # What crashed T02: gpt-oss sometimes answers with a tool called "commentary", which does not exist.
+    use_fake_search(monkeypatch, [REAL])
+    choice = {"paper_id": "W100", "explanation": "It is about LLM agents.", "uncertainty": "None"}
+    wrong_name_used = []
+
+    def confused_llm(messages, info: AgentInfo) -> ModelResponse:
+        output_tool = info.output_tools[0].name
+        if not info.function_tools:  # step 1: the parse agent
+            return ModelResponse(parts=[ToolCallPart(output_tool, CONSTRAINTS)])
+        searched = any(isinstance(part, ToolReturnPart) and part.tool_name == "search_papers"
+                       for message in messages for part in message.parts)
+        if not searched:
+            return ModelResponse(parts=[ToolCallPart("search_papers", {"query": "llm agents"})])
+        if not wrong_name_used:  # the first answer uses the wrong tool name
+            wrong_name_used.append(True)
+            return ModelResponse(parts=[ToolCallPart("commentary", choice)])
+        return ModelResponse(parts=[ToolCallPart(output_tool, choice)])
+
+    caplog.set_level("INFO", logger="scout")
+    answer = run_scout("find a paper", model=FunctionModel(confused_llm))
+
+    assert answer.found and answer.paper == REAL
+    assert "LLM called commentary" in caplog.text
+
+
+def test_step2_starts_again_after_too_many_wrong_tool_names(monkeypatch, caplog):
+    # What crashed T10/T13: the LLM kept using tools that do not exist ("json"), 4 times in a row.
+    use_fake_search(monkeypatch, [REAL])
+    choice = {"paper_id": "W100", "explanation": "It is about LLM agents.", "uncertainty": "None"}
+    bad_answers = []
+
+    def stubborn_llm(messages, info: AgentInfo) -> ModelResponse:
+        output_tool = info.output_tools[0].name
+        if not info.function_tools:  # step 1: the parse agent
+            return ModelResponse(parts=[ToolCallPart(output_tool, CONSTRAINTS)])
+        searched = any(isinstance(part, ToolReturnPart) and part.tool_name == "search_papers"
+                       for message in messages for part in message.parts)
+        if not searched:
+            return ModelResponse(parts=[ToolCallPart("search_papers", {"query": "llm agents"})])
+        if len(bad_answers) < 4:  # 1 answer + 3 retries: enough to make the first attempt fail
+            bad_answers.append(True)
+            return ModelResponse(parts=[ToolCallPart("json", choice)])
+        return ModelResponse(parts=[ToolCallPart(output_tool, choice)])
+
+    caplog.set_level("INFO", logger="scout")
+    answer = run_scout("find a paper", model=FunctionModel(stubborn_llm))
+
+    assert answer.found and answer.paper == REAL
+    assert "Starting step 2 again" in caplog.text
+    assert answer.searches == ["llm agents"]  # the second attempt starts with a clean search list

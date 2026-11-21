@@ -1,0 +1,731 @@
+[
+  {
+    "id": "T01",
+    "category": "after year + minimum citations (assignment example)",
+    "prompt": "Find a research paper about LLM agents for software engineering that was published after 2022 and has at least 100 citations. Explain why the paper is relevant and provide the source of the citation count.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W4403370443",
+        "title": "From LLMs to LLM-based Agents for Software Engineering: A Survey of Current, Challenges and Future",
+        "authors": [
+          "Haolin Jin",
+          "Li Huang",
+          "Haipeng Cai",
+          "Jun Yan",
+          "Bo Li",
+          "Huaming Chen"
+        ],
+        "year": 2024,
+        "citation_count": 366,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W4403370443), retrieved 2026-11-21",
+        "url": "https://doi.org/10.48550/arxiv.2408.02479",
+        "doi": "https://doi.org/10.48550/arxiv.2408.02479",
+        "abstract": "With the rise of large language models (LLMs), researchers are increasingly exploring their applications in var ious vertical domains, such as software engineering. LLMs have achieved remarkable success in areas including code generation and vulnerability detection. However, they also exhibit numerous limitations and shortcomings. LLM-based agents, a novel tech nology with the potential for Artificial General Intelligence (AGI), combine LLMs as the core for decision-making and action-taking, addressing some of the inherent limitations of LLMs such as lack of autonomy and self-improvement. Despite numerous studies and surveys exploring the possibility of using LLMs in software engineering, it lacks a clear distinction between LLMs and LLM based agents. It is still in its early stage for a unified standard and benchmarking to qualify an LLM solution as an LLM-based agent in its domain. In this survey, we broadly investigate the current practice and solutions for LLMs and LLM-based agents for software engineering. In particular we summarise six key topics: requirement engineering, code generation, autonomous decision-making, software design, test generation, and software maintenance. We review and differentiate the work of LLMs and LLM-based agents from these six topics, examining their differences and similarities in tasks, benchmarks, and evaluation metrics. Finally, we discuss the models and benchmarks used, providing a comprehensive analysis of their applications and effectiveness in software engineering. We anticipate this work will shed some lights on pushing the boundaries of LLM-based agents in software engineering for future research."
+      },
+      "explanation": "The paper titled \"From LLMs to LLM-based Agents for Software Engineering: A Survey of Current, Challenges and Future\" provides a comprehensive overview of how large language models are being transformed into autonomous agents for software engineering tasks. It discusses existing applications such as code generation, vulnerability detection, and tool integration, while also highlighting the challenges and future research directions for LLM-based agents in this domain. This makes it highly relevant for understanding the state‑of‑the‑art in LLM agents applied to software engineering. The citation count (366) meets the required threshold of at least 100 citations, confirming its impact in the field.",
+      "uncertainty": [
+        "The term 'LLM agents' could refer to large language model agents in various domains, but we assume the software engineering context as requested.",
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "LLM agents software engineering",
+        "year_op": "after",
+        "year": 2022,
+        "year_end": null,
+        "citation_op": "at_least",
+        "citations": 100,
+        "assumptions": [
+          "The term 'LLM agents' could refer to large language model agents in various domains, but we assume the software engineering context as requested."
+        ]
+      },
+      "searches": [
+        "LLM agents software engineering"
+      ],
+      "llm_requests": 4,
+      "total_tokens": 3234
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": true,
+      "citations_ok": true,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 3.9
+  },
+  {
+    "id": "T02",
+    "category": "before year + more than N citations (assignment example)",
+    "prompt": "Find a paper about retrieval-augmented generation published before 2021 with more than 500 citations. Summarize its contribution in 5-7 sentences.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W3027879771",
+        "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+        "authors": [
+          "Patrick Lewis",
+          "Ethan Perez",
+          "Aleksandra Piktus",
+          "Fabio Petroni",
+          "Vladimir Karpukhin",
+          "Naman Goyal",
+          "Heinrich Küttler",
+          "Mike Lewis",
+          "Wen-tau Yih",
+          "Tim Rocktäschel",
+          "Sebastian Riedel",
+          "Douwe Kiela"
+        ],
+        "year": 2020,
+        "citation_count": 10346,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W3027879771), retrieved 2026-11-21",
+        "url": "https://doi.org/10.48550/arxiv.2005.11401",
+        "doi": "https://doi.org/10.48550/arxiv.2005.11401",
+        "abstract": "Large pre-trained language models have been shown to store factual knowledge in their parameters, and achieve state-of-the-art results when fine-tuned on downstream NLP tasks. However, their ability to access and precisely manipulate knowledge is still limited, and hence on knowledge-intensive tasks, their performance lags behind task-specific architectures. Additionally, providing provenance for their decisions and updating their world knowledge remain open research problems. Pre-trained models with a differentiable access mechanism to explicit non-parametric memory can overcome this issue, but have so far been only investigated for extractive downstream tasks. We explore a general-purpose fine-tuning recipe for retrieval-augmented generation (RAG) -- models which combine pre-trained parametric and non-parametric memory for language generation. We introduce RAG models where the parametric memory is a pre-trained seq2seq model and the non-parametric memory is a dense vector index of Wikipedia, accessed with a pre-trained neural retriever. We compare two RAG formulations, one which conditions on the same retrieved passages across the whole generated sequence, the other can use different passages per token. We fine-tune and evaluate our models on a wide range of knowledge-intensive NLP tasks and set the state-of-the-art on three open domain QA tasks, outperforming parametric seq2seq models and task-specific retrieve-and-extract architectures. For language generation tasks, we find that RAG models generate more specific, diverse and factual language than a state-of-the-art parametric-only seq2seq baseline."
+      },
+      "explanation": "The paper introduces Retrieval‑Augmented Generation (RAG), a framework that combines a neural language model with an external document retriever. By first retrieving relevant passages from a large corpus and then conditioning the generator on these passages, the approach enables the model to produce more factual and up‑to‑date responses while providing provenance for the information used. The authors demonstrate that RAG outperforms purely parametric models on several knowledge‑intensive NLP tasks such as open‑domain question answering, fact verification, and slot‑filling. They also show that the system can be trained end‑to‑end, allowing the retriever and generator to be jointly optimized for the downstream task. Experiments reveal that RAG achieves state‑of‑the‑art results with fewer parameters than large language models that rely solely on stored knowledge. The work highlights the benefits of modularizing knowledge access, making the model more interpretable and easier to update with new information without retraining the entire network. Overall, this paper establishes a strong baseline for retrieval‑augmented generation and has become a foundational reference in the field.",
+      "uncertainty": [
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "retrieval augmented generation",
+        "year_op": "before",
+        "year": 2021,
+        "year_end": null,
+        "citation_op": "more_than",
+        "citations": 500,
+        "assumptions": []
+      },
+      "searches": [
+        "retrieval augmented generation"
+      ],
+      "llm_requests": 4,
+      "total_tokens": 3317
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": true,
+      "citations_ok": true,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 3.9
+  },
+  {
+    "id": "T03",
+    "category": "vague year word 'recent', no citation limit (assignment example)",
+    "prompt": "Find a recent paper about AI agents using tools and explain whether it would be useful for someone building autonomous software agents.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W7225999671",
+        "title": "Capability-Bound Authorization for AI Agent Tool Calls",
+        "authors": [
+          "Dhruv Agnihotri"
+        ],
+        "year": 2026,
+        "citation_count": 0,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W7225999671), retrieved 2026-11-21",
+        "url": "https://doi.org/10.1109/mic.2026.3753356",
+        "doi": "https://doi.org/10.1109/mic.2026.3753356",
+        "abstract": "OAuth 2.0 scopes authorize AI agent tool calls at the wrong grain: a scope like calendar.write covers every mutation an agent could ever make, is fixed at request time before the agent knows which specific call it will make, and cannot be narrowed by the holder before delegating to a sub-agent. We argue that capability tokens, i.e. attenuable, call-time-bound authorization primitives with 30-plus years of prior art in the capability-security literature, are the right fit for agent tool-call authorization, and that the existing OAuth 2.1 machinery (Token Exchange, RFC 8693; DPoP, RFC 9449; Transaction Tokens) already provides most of the mechanism needed to implement this without bespoke cryptography. We measure the cost of one concrete implementation across a nine-hop delegation chain and find that attenuation overhead is small and does not grow with chain depth; the dominant per-hop cost is unrelated client authentication."
+      },
+      "explanation": "The paper proposes a new authorization mechanism—capability tokens—that are attenuable and bound to each tool call made by an AI agent. It argues that traditional OAuth scopes are too coarse, covering all possible mutations an agent might perform, and are fixed before the agent knows which specific call it will make. By introducing call‑time‑bound tokens, the approach enables finer‑grained, dynamic permission control for tool usage. For someone building autonomous software agents, this work offers a concrete solution to safely manage and delegate tool access, helping to avoid over‑privileged permissions and to enforce security policies that adapt to the agent’s actual behavior at runtime.",
+      "uncertainty": [
+        "The term 'recent' is interpreted as from 2024 onward.",
+        "The abstract focuses on authorization; the paper may not address other aspects of tool integration such as API design, error handling, or performance, which the developer might also need to consider.",
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "AI agents tools",
+        "year_op": "from",
+        "year": 2024,
+        "year_end": null,
+        "citation_op": "any",
+        "citations": null,
+        "assumptions": [
+          "The term 'recent' is interpreted as from 2024 onward."
+        ]
+      },
+      "searches": [
+        "AI agents tools"
+      ],
+      "llm_requests": 3,
+      "total_tokens": 3472
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": true,
+      "citations_ok": null,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 3.6
+  },
+  {
+    "id": "T04",
+    "category": "exact year + very high minimum citations",
+    "prompt": "Find a paper about deep residual learning for image recognition published in 2016 with at least 50000 citations.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W2194775991",
+        "title": "Deep Residual Learning for Image Recognition",
+        "authors": [
+          "Kaiming He",
+          "Xiangyu Zhang",
+          "Shaoqing Ren",
+          "Jian Sun"
+        ],
+        "year": 2016,
+        "citation_count": 290606,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W2194775991), retrieved 2026-11-21",
+        "url": "https://doi.org/10.1109/cvpr.2016.90",
+        "doi": "https://doi.org/10.1109/cvpr.2016.90",
+        "abstract": "Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers - 8× deeper than VGG nets [40] but still having lower complexity. An ensemble of these residual nets achieves 3.57% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers. The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC & COCO 2015 competitions1, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation."
+      },
+      "explanation": "The paper titled \"Deep Residual Learning for Image Recognition\" introduces a residual learning framework that facilitates training of very deep neural networks for image recognition tasks. It reformulates layers to learn residual functions relative to their inputs, addressing difficulties in training deeper models and providing extensive empirical evidence of its effectiveness.",
+      "uncertainty": [
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "deep residual learning image recognition",
+        "year_op": "in",
+        "year": 2016,
+        "year_end": null,
+        "citation_op": "at_least",
+        "citations": 50000,
+        "assumptions": []
+      },
+      "searches": [
+        "deep residual learning image recognition"
+      ],
+      "llm_requests": 3,
+      "total_tokens": 2748
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": true,
+      "citations_ok": true,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 2.4
+  },
+  {
+    "id": "T05",
+    "category": "narrow topic + after year + minimum citations",
+    "prompt": "Find a paper about automated program repair with large language models published after 2021 with at least 50 citations.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W4384345708",
+        "title": "Automated Program Repair in the Era of Large Pre-trained Language Models",
+        "authors": [
+          "Chunqiu Steven Xia",
+          "Yuxiang Wei",
+          "Lingming Zhang"
+        ],
+        "year": 2023,
+        "citation_count": 887,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W4384345708), retrieved 2026-11-21",
+        "url": "https://doi.org/10.1109/icse48619.2023.00129",
+        "doi": "https://doi.org/10.1109/icse48619.2023.00129",
+        "abstract": "Automated Program Repair (APR) aims to help developers automatically patch software bugs. However, current state-of-the-art traditional and learning-based APR techniques face the problem of limited patch variety, failing to fix complicated bugs. This is mainly due to the reliance on bug-fixing datasets to craft fix templates (traditional) or directly predict potential patches (learning-based). Large Pre-Trained Language Models (LLMs), trained using billions of text/code tokens, can potentially help avoid this issue. Very recently, researchers have directly leveraged LLMs for APR without relying on any bug-fixing datasets. Meanwhile, such existing work either failed to include state-of-the-art LLMs or was not evaluated on realistic datasets. Thus, the true power of modern LLMs on the important APR problem is yet to be revealed. In this work, we perform the first extensive study on directly applying LLMs for APR. We select 9 recent state-of-the-art LLMs, including both generative and infilling models, ranging from 125M to 20B in size. We designed 3 different repair settings to evaluate the different ways we can use LLMs to generate patches: 1) generate the entire patch function, 2) fill in a chunk of code given the prefix and suffix 3) output a single line fix. We apply the LLMs under these repair settings on 5 datasets across 3 different languages and compare different LLMs in the number of bugs fixed, generation speed and compilation rate. We also compare the LLMs against recent state-of-the-art APR tools. Our study demonstrates that directly applying state-of-the-art LLMs can already substantially outperform all existing APR techniques on all our datasets. Among the studied LLMs, the scaling effect exists for APR where larger models tend to achieve better performance. Also, we show for the first time that suffix code after the buggy line (adopted in infilling-style APR) is important in not only generating more fixes but more patches with higher compilation rate. Besides patch generation, the LLMs consider correct patches to be more natural than other ones, and can even be leveraged for effective patch ranking or patch correctness checking. Lastly, we show that LLM-based APR can be further substantially boosted via: 1) increasing the sample size, and 2) incorporating fix template information."
+      },
+      "explanation": "The paper titled \"Automated Program Repair in the Era of Large Pre-trained Language Models\" directly addresses the use of large language models for automated program repair. It discusses the limitations of traditional and learning‑based APR techniques and proposes leveraging pre‑trained LLMs to generate more diverse and effective patches for software bugs. The abstract highlights the motivation, challenges, and the proposed approach, making it a strong match for the request for a recent, highly cited work on this topic.",
+      "uncertainty": [
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "automated program repair large language models",
+        "year_op": "after",
+        "year": 2021,
+        "year_end": null,
+        "citation_op": "at_least",
+        "citations": 50,
+        "assumptions": []
+      },
+      "searches": [
+        "automated program repair large language models"
+      ],
+      "llm_requests": 4,
+      "total_tokens": 3161
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": true,
+      "citations_ok": true,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 3.1
+  },
+  {
+    "id": "T06",
+    "category": "narrow topic + maximum citations",
+    "prompt": "Find a paper about prompt injection attacks against LLM-integrated applications, published from 2023 onwards, with fewer than 50 citations.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W7166796419",
+        "title": "Rethinking Assessments of Prompt Injection Attacks",
+        "authors": [
+          "Chi Cui",
+          "Yixin Wu",
+          "Michael Backes",
+          "Yang Zhang"
+        ],
+        "year": 2026,
+        "citation_count": 3,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W7166796419), retrieved 2026-11-21",
+        "url": "https://doi.org/10.18653/v1/2026.findings-acl.1191",
+        "doi": "https://doi.org/10.18653/v1/2026.findings-acl.1191",
+        "abstract": "Prompt injection attacks are recognized as one of the primary risks faced by LLM-integrated applications in recent years.However, common evaluation frameworks remain insufficient, lacking comprehensiveness and real-world relevance.To bridge this gap, we revisit the common evaluation framework and conduct an extensive evaluation across eight different evaluation settings, including 37 real-world applications, 185 injected tasks, 21 attack instructions, and a total of 143,745 queries.The evaluation highlights several findings.For example, real-world applications are more vulnerable to prompt injection attacks compared to those used in research settings.While complex attack instructions are more sophisticated, they are less effective than simple attack instructions.To uncover the root causes of these phenomena, we further investigate the model's internal representations during attacks, offering profound insights into the underlying dynamics of these attacks.Additionally, we conduct an assessment of both prompt-level and model-level defense mechanisms and highlight their limitations in real-world applications.By exploring more diverse scenarios across different dimensions, our framework provides a solid foundation for assessing vulnerabilities in LLM-integrated applications and evaluating the efficacy of defensive strategies. 1"
+      },
+      "explanation": "The paper titled \"Rethinking Assessments of Prompt Injection Attacks\" investigates prompt injection attacks, which are a primary risk for applications that integrate large language models (LLMs). The abstract explains that existing evaluation frameworks are insufficient for real-world relevance and that the authors conduct an extensive assessment across multiple settings, including real-world applications. This directly addresses the security concerns of LLM‑integrated systems and fits the requested criteria (published after 2023, fewer than 50 citations).",
+      "uncertainty": [
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "prompt injection attacks",
+        "year_op": "from",
+        "year": 2023,
+        "year_end": null,
+        "citation_op": "less_than",
+        "citations": 50,
+        "assumptions": []
+      },
+      "searches": [
+        "prompt injection attacks"
+      ],
+      "llm_requests": 3,
+      "total_tokens": 3234
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": true,
+      "citations_ok": true,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 2.9
+  },
+  {
+    "id": "T07",
+    "category": "broad topic + approximate citations",
+    "prompt": "Find a paper about graph neural networks with roughly 1000 citations.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W3007332492",
+        "title": "Benchmarking Graph Neural Networks",
+        "authors": [
+          "Vijay Prakash Dwivedi",
+          "Chaitanya K. Joshi",
+          "Anh Tuan Luu",
+          "Thomas Laurent",
+          "Yoshua Bengio",
+          "Xavier Bresson"
+        ],
+        "year": 2020,
+        "citation_count": 1065,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W3007332492), retrieved 2026-11-21",
+        "url": "https://doi.org/10.48550/arxiv.2003.00982",
+        "doi": "https://doi.org/10.48550/arxiv.2003.00982",
+        "abstract": "In the last few years, graph neural networks (GNNs) have become the standard toolkit for analyzing and learning from data on graphs. This emerging field has witnessed an extensive growth of promising techniques that have been applied with success to computer science, mathematics, biology, physics and chemistry. But for any successful field to become mainstream and reliable, benchmarks must be developed to quantify progress. This led us in March 2020 to release a benchmark framework that i) comprises of a diverse collection of mathematical and real-world graphs, ii) enables fair model comparison with the same parameter budget to identify key architectures, iii) has an open-source, easy-to-use and reproducible code infrastructure, and iv) is flexible for researchers to experiment with new theoretical ideas. As of December 2022, the GitHub repository has reached 2,000 stars and 380 forks, which demonstrates the utility of the proposed open-source framework through the wide usage by the GNN community. In this paper, we present an updated version of our benchmark with a concise presentation of the aforementioned framework characteristics, an additional medium-sized molecular dataset AQSOL, similar to the popular ZINC, but with a real-world measured chemical target, and discuss how this framework can be leveraged to explore new GNN designs and insights. As a proof of value of our benchmark, we study the case of graph positional encoding (PE) in GNNs, which was introduced with this benchmark and has since spurred interest of exploring more powerful PE for Transformers and GNNs in a robust experimental setting."
+      },
+      "explanation": "The paper titled \"Benchmarking Graph Neural Networks\" provides a comprehensive evaluation of many GNN architectures across a variety of tasks and datasets. It establishes standardized benchmarks, discusses performance trends, and highlights strengths and weaknesses of different methods, making it a foundational reference for researchers working with graph neural networks. With 1065 citations, it falls squarely within the requested citation range of roughly 1000 citations.",
+      "uncertainty": [
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "graph neural networks",
+        "year_op": "any",
+        "year": null,
+        "year_end": null,
+        "citation_op": "about",
+        "citations": 1000,
+        "assumptions": []
+      },
+      "searches": [
+        "graph neural networks"
+      ],
+      "llm_requests": 3,
+      "total_tokens": 3226
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": null,
+      "citations_ok": true,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 2.8
+  },
+  {
+    "id": "T08",
+    "category": "narrow topic + since year (inclusive) + minimum citations",
+    "prompt": "Find a paper on benchmarks for evaluating code generation by large language models, published since 2021, with at least 200 citations.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W3126675481",
+        "title": "CodeXGLUE: A Machine Learning Benchmark Dataset for Code Understanding and Generation",
+        "authors": [
+          "Shuai Lu",
+          "Daya Guo",
+          "Shuo Ren",
+          "Huang, Junjie",
+          "A. Svyatkovskiy",
+          "Ambrosio Blanco",
+          "Colin B. Clement",
+          "Dawn Drain",
+          "Daxin Jiang",
+          "Duyu Tang",
+          "Ge Li",
+          "Lidong Zhou",
+          "Linjun Shou",
+          "Long Zhou",
+          "Michele Tufano",
+          "Ming Gong",
+          "Ming Zhou",
+          "Nan Duan",
+          "Neel Sundaresan",
+          "Shao Kun Deng",
+          "Sheng‐Yu Fu",
+          "Shujie Liu"
+        ],
+        "year": 2021,
+        "citation_count": 1947,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W3126675481), retrieved 2026-11-21",
+        "url": "https://doi.org/10.48550/arxiv.2102.04664",
+        "doi": "https://doi.org/10.48550/arxiv.2102.04664",
+        "abstract": "Benchmark datasets have a significant impact on accelerating research in programming language tasks. In this paper, we introduce CodeXGLUE, a benchmark dataset to foster machine learning research for program understanding and generation. CodeXGLUE includes a collection of 10 tasks across 14 datasets and a platform for model evaluation and comparison. CodeXGLUE also features three baseline systems, including the BERT-style, GPT-style, and Encoder-Decoder models, to make it easy for researchers to use the platform. The availability of such data and baselines can help the development and validation of new methods that can be applied to various program understanding and generation problems."
+      },
+      "explanation": "CodeXGLUE is a comprehensive benchmark suite introduced to accelerate research on program understanding and generation. It aggregates a collection of ten tasks across fourteen datasets, many of which focus on code generation, providing a standardized platform for evaluating large language models on generating code. Its broad coverage and high citation count make it a key reference for assessing LLM code generation performance.",
+      "uncertainty": [
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "code generation benchmarks",
+        "year_op": "from",
+        "year": 2021,
+        "year_end": null,
+        "citation_op": "at_least",
+        "citations": 200,
+        "assumptions": []
+      },
+      "searches": [
+        "code generation benchmarks"
+      ],
+      "llm_requests": 3,
+      "total_tokens": 3381
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": true,
+      "citations_ok": true,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 3.3
+  },
+  {
+    "id": "T09",
+    "category": "no good paper exists (topic did not exist yet)",
+    "prompt": "Find a paper about LLM-based coding agents published before 2010 with at least 1000 citations.",
+    "error": null,
+    "answer": {
+      "found": false,
+      "paper": null,
+      "explanation": "No paper meets all the criteria. The concept of large language models (LLMs) for code generation or coding agents emerged after 2010, and there are no pre‑2010 publications that discuss LLM‑based coding agents and have accumulated at least 1000 citations. Therefore, no suitable paper can be provided.",
+      "uncertainty": [
+        "The term 'LLM-based coding agents' is interpreted as software agents that use large language models for code generation, which aligns with a software company context.",
+        "2 search(es) were tried; 10 paper(s) passed the year and citation limits."
+      ],
+      "constraints": {
+        "topic": "LLM coding agents",
+        "year_op": "before",
+        "year": 2010,
+        "year_end": null,
+        "citation_op": "at_least",
+        "citations": 1000,
+        "assumptions": [
+          "The term 'LLM-based coding agents' is interpreted as software agents that use large language models for code generation, which aligns with a software company context."
+        ]
+      },
+      "searches": [
+        "code generation language model",
+        "code generation language model 2009"
+      ],
+      "llm_requests": 4,
+      "total_tokens": 5268
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": null,
+      "citations_ok": null,
+      "valid_source": null,
+      "facts_match_api": null
+    },
+    "seconds": 4.7
+  },
+  {
+    "id": "T10",
+    "category": "no good paper exists (impossible citation count)",
+    "prompt": "Find a paper about retrieval-augmented generation published in 2025 with more than 200000 citations.",
+    "error": null,
+    "answer": {
+      "found": false,
+      "paper": null,
+      "explanation": "I could not find any paper that matches the request for a retrieval-augmented generation study published in 2025 with more than 200,000 citations. Given the citation threshold, it is highly unlikely that a paper from 2025 would have accumulated that many citations so far.",
+      "uncertainty": [
+        "3 search(es) were tried; 0 paper(s) passed the year and citation limits."
+      ],
+      "constraints": {
+        "topic": "retrieval augmented generation",
+        "year_op": "in",
+        "year": 2025,
+        "year_end": null,
+        "citation_op": "more_than",
+        "citations": 200000,
+        "assumptions": []
+      },
+      "searches": [
+        "retrieval augmented generation",
+        "RAG",
+        "retrieval-augmented generation"
+      ],
+      "llm_requests": 5,
+      "total_tokens": 4330
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": null,
+      "citations_ok": null,
+      "valid_source": null,
+      "facts_match_api": null
+    },
+    "seconds": 105.8
+  },
+  {
+    "id": "T11",
+    "category": "ambiguous request (unclear topic, no limits)",
+    "prompt": "Find me a good paper about transformers.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W4321276130",
+        "title": "Transformer models: an introduction and catalog",
+        "authors": [
+          "Xavier Amatriain",
+          "Sankar, Ananth",
+          "Bing, Jie",
+          "Bodigutla, Praveen Kumar",
+          "Timothy J. Hazen",
+          "Michaeel Kazi"
+        ],
+        "year": 2023,
+        "citation_count": 152,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W4321276130), retrieved 2026-11-21",
+        "url": "https://doi.org/10.48550/arxiv.2302.07730",
+        "doi": "https://doi.org/10.48550/arxiv.2302.07730",
+        "abstract": "In the past few years we have seen the meteoric appearance of dozens of foundation models of the Transformer family, all of which have memorable and sometimes funny, but not self-explanatory, names. The goal of this paper is to offer a somewhat comprehensive but simple catalog and classification of the most popular Transformer models. The paper also includes an introduction to the most important aspects and innovations in Transformer models. Our catalog will include models that are trained using self-supervised learning (e.g., BERT or GPT3) as well as those that are further trained using a human-in-the-loop (e.g. the InstructGPT model used by ChatGPT)."
+      },
+      "explanation": "The paper titled \"Transformer models: an introduction and catalog\" offers a comprehensive yet accessible overview of the rapidly expanding family of Transformer-based foundation models. According to its abstract, the authors aim to provide a simple catalog and classification of the most popular Transformer models, along with an introduction to the key architectural components and concepts that define them. This makes it an excellent starting point for anyone looking to understand the variety of Transformer architectures, their design choices, and how they relate to one another, fulfilling the request for a good paper about transformers.",
+      "uncertainty": [
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "transformer models",
+        "year_op": "any",
+        "year": null,
+        "year_end": null,
+        "citation_op": "any",
+        "citations": null,
+        "assumptions": []
+      },
+      "searches": [
+        "transformer models"
+      ],
+      "llm_requests": 3,
+      "total_tokens": 3087
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": null,
+      "citations_ok": null,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 2.9
+  },
+  {
+    "id": "T12",
+    "category": "ambiguous request (vague words: recent, popular, agents)",
+    "prompt": "I need something recent and popular about agents.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W4411449940",
+        "title": "Demystifying LLM-Based Software Engineering Agents",
+        "authors": [
+          "Chunqiu Steven Xia",
+          "Yinlin Deng",
+          "Soren Dunn",
+          "Lingming Zhang"
+        ],
+        "year": 2025,
+        "citation_count": 1071,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W4411449940), retrieved 2026-11-21",
+        "url": "https://doi.org/10.1145/3715754",
+        "doi": "https://doi.org/10.1145/3715754",
+        "abstract": "Recent advancements in large language models (LLMs) have significantly advanced the automation of software development tasks, including code synthesis, program repair, and test generation. More recently, researchers and industry practitioners have developed various autonomous LLM agents to perform end-to-end software development tasks. These agents are equipped with the ability to use tools, run commands, observe feedback from the environment, and plan for future actions. However, the complexity of these agent-based approaches, together with the limited abilities of current LLMs, raises the following question: Do we really have to employ complex autonomous software agents? To attempt to answer this question, we build Agentless – an agentless approach to automatically resolve software development issues. Compared to the verbose and complex setup of agent-based approaches, Agentless employs a simplistic three-phase process of localization, repair, and patch validation, without letting the LLM decide future actions or operate with complex tools. Our results on the popular SWE-bench Lite benchmark show that surprisingly the simplistic Agentless is able to achieve both the highest performance (32.00%, 96 correct fixes) and low cost ($0.70) compared with all existing open-source software agents at the time of paper submission! Agentless also achieves more than 50% solve rate when using Claude 3.5 Sonnet on the new SWE-bench Verified benchmark. In fact, Agentless has already been adopted by OpenAI as the go-to approach to showcase the real-world coding performance of both GPT-4o and the new o1 models; more recently, Agentless has also been used by DeepSeek to evaluate their newest DeepSeek V3 and R1 models . Furthermore, we manually classified the problems in SWE-bench Lite and found problems with exact ground truth patches or insufficient/misleading issue descriptions. As such, we construct SWE-bench Lite- S by excluding such problematic issues to perform more rigorous evaluation and comparison. Our work highlights the currently overlooked potential of a simplistic, cost-effective technique in autonomous software development. We hope Agentless will help reset the baseline, starting point, and horizon for autonomous software agents, and inspire future work along this crucial direction. We have open-sourced Agentless at: https://github.com/OpenAutoCoder/Agentless"
+      },
+      "explanation": "The paper titled \"Demystifying LLM-Based Software Engineering Agents\" provides a comprehensive overview of recent autonomous agents that use large language models to perform end‑to‑end software development tasks. It discusses how these agents are built, the tools they employ, and their impact on software engineering, making it a recent (2025) and highly cited (over 1000 citations) work that directly addresses the topic of software agents.",
+      "uncertainty": [
+        "The term \"recent\" is interpreted as from the year 2024 onward.",
+        "The term \"popular\" is interpreted as having at least 100 citations.",
+        "The word \"agents\" is taken to refer to software or AI agents relevant to a software company.",
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "software agents",
+        "year_op": "from",
+        "year": 2024,
+        "year_end": null,
+        "citation_op": "at_least",
+        "citations": 100,
+        "assumptions": [
+          "The term \"recent\" is interpreted as from the year 2024 onward.",
+          "The term \"popular\" is interpreted as having at least 100 citations.",
+          "The word \"agents\" is taken to refer to software or AI agents relevant to a software company."
+        ]
+      },
+      "searches": [
+        "software agents"
+      ],
+      "llm_requests": 4,
+      "total_tokens": 3234
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": true,
+      "citations_ok": null,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 40.6
+  },
+  {
+    "id": "T13",
+    "category": "year range (between two years) + minimum citations",
+    "prompt": "Find a paper about federated learning published between 2019 and 2021 with at least 300 citations.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W3182158470",
+        "title": "Model-Contrastive Federated Learning",
+        "authors": [
+          "Qinbin Li",
+          "Bingsheng He",
+          "Dawn Xiaodong Song"
+        ],
+        "year": 2021,
+        "citation_count": 2467,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W3182158470), retrieved 2026-11-21",
+        "url": "https://doi.org/10.1109/cvpr46437.2021.01057",
+        "doi": "https://doi.org/10.1109/cvpr46437.2021.01057",
+        "abstract": "Federated learning enables multiple parties to collaboratively train a machine learning model without communicating their local data. A key challenge in federated learning is to handle the heterogeneity of local data distribution across parties. Although many studies have been proposed to address this challenge, we find that they fail to achieve high performance in image datasets with deep learning models. In this paper, we propose MOON: model-contrastive federated learning. MOON is a simple and effective federated learning framework. The key idea of MOON is to utilize the similarity between model representations to correct the local training of individual parties, i.e., conducting contrastive learning in model-level. Our extensive experiments show that MOON significantly outperforms the other state-of-the-art federated learning algorithms on various image classification tasks."
+      },
+      "explanation": "The paper titled \"Model-Contrastive Federated Learning\" (2021) addresses a core challenge in federated learning: the heterogeneity of local data distributions across participating parties. It proposes a novel approach that leverages model-contrastive learning to improve performance on image datasets with deep learning models, aiming to better handle the variability among client data. This aligns directly with the user's request for a highly cited federated learning paper from 2019‑2021.",
+      "uncertainty": [
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "federated learning",
+        "year_op": "between",
+        "year": 2019,
+        "year_end": 2021,
+        "citation_op": "at_least",
+        "citations": 300,
+        "assumptions": []
+      },
+      "searches": [
+        "federated learning"
+      ],
+      "llm_requests": 7,
+      "total_tokens": 3110
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": true,
+      "citations_ok": true,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 16.7
+  },
+  {
+    "id": "T14",
+    "category": "until year (inclusive) + maximum citations",
+    "prompt": "Find a paper about automated code review published until 2020 with at most 100 citations.",
+    "error": null,
+    "answer": {
+      "found": true,
+      "paper": {
+        "paper_id": "W2796146415",
+        "title": "Diggit: Automated code review via software repository mining",
+        "authors": [
+          "Robert Chatley",
+          "Lawrence Jones"
+        ],
+        "year": 2018,
+        "citation_count": 18,
+        "citation_source": "OpenAlex 'cited_by_count' (https://openalex.org/W2796146415), retrieved 2026-11-21",
+        "url": "https://doi.org/10.1109/saner.2018.8330261",
+        "doi": "https://doi.org/10.1109/saner.2018.8330261",
+        "abstract": "We present Diggit, a tool to automatically generate code review comments, offering design guidance on prospective changes, based on insights gained from mining historical changes in source code repositories. We describe how the tool was built and tuned for use in practice as we integrated Diggit into the working processes of an industrial development team. We focus on the developer experience, the constraints that had to be met in adapting academic research to produce a tool that was useful to developers, and the effectiveness of the results in practice."
+      },
+      "explanation": "The paper titled \"Diggit: Automated code review via software repository mining\" presents a tool that automatically generates code review comments by mining historical changes in software repositories. It focuses on providing design guidance for prospective code changes, describing the tool’s construction, tuning, and integration into an industrial development workflow. This directly addresses the topic of automated code review and meets the constraints of being published before 2020 with fewer than 100 citations.",
+      "uncertainty": [
+        "Citation counts differ between databases. This one is from OpenAlex."
+      ],
+      "constraints": {
+        "topic": "automated code review",
+        "year_op": "until",
+        "year": 2020,
+        "year_end": null,
+        "citation_op": "at_most",
+        "citations": 100,
+        "assumptions": []
+      },
+      "searches": [
+        "automated code review"
+      ],
+      "llm_requests": 6,
+      "total_tokens": 3298
+    },
+    "checks": {
+      "found_as_expected": true,
+      "year_ok": true,
+      "citations_ok": true,
+      "valid_source": true,
+      "facts_match_api": true
+    },
+    "seconds": 5.1
+  }
+]
