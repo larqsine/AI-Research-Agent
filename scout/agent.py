@@ -10,13 +10,21 @@ Those facts are copied by code from what OpenAlex returned.
 """
 
 import datetime as dt
+import logging
 from dataclasses import dataclass, field
 
-from pydantic_ai import Agent, ModelRetry, RunContext
+from pydantic_ai import Agent, ModelRetry, RunContext, UnexpectedModelBehavior, capture_run_messages
+from pydantic_ai.messages import RetryPromptPart, ToolCallPart, ToolReturnPart
 from pydantic_ai.usage import UsageLimits
 
 from . import config, openalex
 from .models import Choice, Constraints, Paper, ScoutAnswer
+
+# Turn this on to see every tool call and every "try again" the LLM got
+# (run_eval.py does this with --verbose).
+log = logging.getLogger("scout")
+
+STEP2_ATTEMPTS = 2  # how many times step 2 may start from scratch after the LLM breaks the answer format
 
 # ---------------------------------------------------------------- STEP 1 (LLM)
 
@@ -32,6 +40,7 @@ Rules:
 - topic: 2-5 keywords for the subject only.
 - Year words: "after 2022" -> year_op=after, year=2022. "since/from 2022" -> from.
   "before 2021" -> before. "until/up to 2021" -> until. "in 2020" -> in.
+  "between 2019 and 2021" / "from 2019 to 2021" / "2019-2021" -> year_op=between, year=2019, year_end=2021.
   Copy the year exactly as written. Never add or subtract anything yourself.
 - Citation words: "at least 100" / "100 or more" -> at_least. "more than / over 500" -> more_than.
   "at most / no more than" -> at_most. "fewer than / less than" -> less_than.
@@ -71,7 +80,11 @@ Writing rules:
 - explanation: give what the user asked for (why it is relevant, a summary, ...) and follow any
   length they asked for. Use ONLY the title and abstract returned by the tool.
 - Do not write citation counts, years or author names. The program adds those facts itself.
-- uncertainty: say what the user should double-check (missing abstract, weak topic match, ...) or "None"."""
+- uncertainty: say what the user should double-check (missing abstract, weak topic match, ...) or "None".
+
+How to answer:
+- Give your final answer ONLY by calling the final_result tool.
+- The only tools that exist are search_papers and final_result. There is no "commentary" tool."""
 
 research_agent = Agent(
     deps_type=SearchState,
@@ -143,6 +156,18 @@ def _clean_id(paper_id: str | None) -> str | None:
     return paper_id.strip().rstrip("/").rsplit("/", 1)[-1].upper()
 
 
+def _log_steps(messages) -> None:
+    """Write down what the LLM did in step 2: each tool call and each time it was told to retry."""
+    for message in messages:
+        for part in message.parts:
+            if isinstance(part, ToolCallPart):
+                log.info("LLM called %s %s", part.tool_name, str(part.args)[:150])
+            elif isinstance(part, RetryPromptPart):
+                log.info("LLM was told to retry: %s", str(part.content)[:200])
+            elif isinstance(part, ToolReturnPart) and str(part.content).startswith("Unknown tool"):
+                log.info("LLM used a tool that does not exist: %s", part.content)
+
+
 def run_scout(question: str, model=None) -> ScoutAnswer:
     """Answer one research request. `model` can be overridden (the tests use a fake model)."""
     model = model or config.MODEL
@@ -152,16 +177,28 @@ def run_scout(question: str, model=None) -> ScoutAnswer:
     constraints = parsed.output
 
     # STEP 2 (LLM + tool): search and choose. The tool does the filtering in code.
-    state = SearchState(constraints=constraints)
     prompt = (
         f"User request: {question}\n\n"
         f"Limits the search tool enforces for you: {constraints.describe()}\n"
         f"Suggested first search: {constraints.topic}"
     )
-    # request_limit stops a confused LLM from looping forever (and eating the free quota).
-    researched = research_agent.run_sync(
-        prompt, model=model, deps=state, usage_limits=UsageLimits(request_limit=10)
-    )
+    # The LLM sometimes answers with a tool that does not exist ("commentary", "json", ...).
+    # After 3 bad answers PydanticAI gives up. Then we start step 2 once more from scratch.
+    for attempt in range(1, STEP2_ATTEMPTS + 1):
+        state = SearchState(constraints=constraints)  # a fresh start: no old searches or papers
+        with capture_run_messages() as messages:
+            try:
+                # request_limit stops a confused LLM from looping forever (and eating the free quota).
+                researched = research_agent.run_sync(
+                    prompt, model=model, deps=state, usage_limits=UsageLimits(request_limit=10)
+                )
+                break
+            except UnexpectedModelBehavior as error:
+                if attempt == STEP2_ATTEMPTS:
+                    raise
+                log.info("Step 2 failed (%s). Starting step 2 again.", error)
+            finally:  # also on a crash, so we can see what went wrong
+                _log_steps(messages)
     choice = researched.output
 
     # STEP 3 (code): build the answer. Facts come from the tool's data, not from the LLM.

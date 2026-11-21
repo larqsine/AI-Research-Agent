@@ -49,3 +49,12 @@ def test_missing_data_is_rejected_when_there_is_a_limit():
 
 def test_no_limits_allows_everything():
     assert Constraints(topic="x").allows(paper(None, None))
+
+
+def test_year_range_between_two_years():
+    # "between 2019 and 2021" keeps both years (this was prompt T13 in the evaluation)
+    assert Constraints(topic="x", year_op="between", year=2019, year_end=2021).year_range() == (2019, 2021)
+    assert Constraints(topic="x", year_op="between", year=2021, year_end=2019).year_range() == (2019, 2021)
+    assert Constraints(topic="x", year_op="between", year=2019).year_range() == (2019, None)
+    c = Constraints(topic="x", year_op="between", year=2019, year_end=2021)
+    assert c.allows(paper(2020, 0)) and not c.allows(paper(2022, 0)) and not c.allows(paper(2018, 0))

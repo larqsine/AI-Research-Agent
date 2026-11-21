@@ -16,16 +16,20 @@ class Constraints(BaseModel):
     topic: str = Field(
         description="The research topic as a short search phrase of 2-5 keywords. No years, no numbers."
     )
-    year_op: Literal["any", "after", "from", "before", "until", "in"] = Field(
+    year_op: Literal["any", "after", "from", "before", "until", "in", "between"] = Field(
         "any",
         description=(
             "How the publication year is limited. after = later than the year, "
             "from = that year or later, before = earlier than the year, "
-            "until = that year or earlier, in = exactly that year, any = no limit."
+            "until = that year or earlier, in = exactly that year, "
+            "between = from year to year_end (both included), any = no limit."
         ),
     )
     year: int | None = Field(
         None, description="The year exactly as the user wrote it. null when year_op is 'any'."
+    )
+    year_end: int | None = Field(
+        None, description="Only for year_op 'between': the second year as the user wrote it. Otherwise null."
     )
     citation_op: Literal["any", "at_least", "more_than", "at_most", "less_than", "about"] = Field(
         "any", description="How the citation count is limited. any = no limit."
@@ -45,6 +49,10 @@ class Constraints(BaseModel):
         y = self.year
         if y is None:
             return (None, None)
+        if self.year_op == "between":  # "between 2021 and 2019" works too; no second year = "from"
+            if self.year_end is None:
+                return (y, None)
+            return (min(y, self.year_end), max(y, self.year_end))
         return {
             "any": (None, None),
             "after": (y + 1, None),
